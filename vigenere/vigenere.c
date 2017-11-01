@@ -37,32 +37,35 @@ int main (int argc, string argv[])
     printf("plaintext: ");
     string plaintext = get_string();
 
+    // output label for the ciphertext to be produced below
+    printf("ciphertext: ");
+
     if (plaintext != NULL)
     {
-        char c;
+        int c;
         // create variable to hold the value of each char in key
-        int keyshift = 0;
+        int j = 0;
 
         // iterate through the chars in plaintext
         for (int i = 0, n = strlen(plaintext); i < n; i++)
         {
-            // for each iteration, claculate the value of the key, starting at 0. Increase the value at each iteration by 1 (keyshift++)
-            keyshift = tolower(key[keyshift % k]) - 97;
-            // eprintf(" %i\n", keyshift); // printing the shift values correctly
+            // for each iteration, calculate the value of the key, starting at 0. Increase the value at each iteration by 1 (j++)
+            int keyshift = tolower(key[j % k]) - 97;
+            // eprintf(" %i\n", keyshift); // NOT printing the shift values correctly anymore. It was inside the loop.
             if (isupper(plaintext[i]))
             {
-                // convert each char in plaintext to an int matching its index in the alphabet (0-25)
-                // add the keyshift, using modulo to wrap around the alphabet
+                // convert each char in plaintext to an int matching its index in the alphabet (0-25) and add the keyshift to it
+                // Use modulo to wrap around the alphabet
                 // convert back to an ASCII character by adding 65
-                c = plaintext[i] - 65 + (keyshift % 26) + 65;
+                c = ((plaintext[i] - 65 + keyshift) % 26) + 65;
                 printf("%c", c);
-                keyshift++;
+                j++;
             }
             else if (islower(plaintext[i]))
             {
-                c = plaintext[i] - 97 + (keyshift % 26) + 97;
+                c = ((plaintext[i] - 97 + keyshift) % 26) + 97;
                 printf("%c", c);
-                keyshift++;
+                j++;
             }
             else
             {

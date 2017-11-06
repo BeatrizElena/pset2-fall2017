@@ -3,16 +3,27 @@
 #include <ctype.h>
 #include <stdio.h>
 
-int main (int argc, string argv[])
+int main (void)
 {
-    // iterate over strings in argv, starting with 2nd string, i.e. string at index 1
-    for (int i = 1; i < argc; i++)
+    // ask user for input
+    string s = get_string();
+
+    // make sure get_string() returned a string
+    if (s != NULL)
     {
-        for (int j = 0, n = strlen(argv[i]); j < n; j++)
+        // print first init
+        printf("%c", toupper(s[0]));
+        //iterate through string and ook for space ' ' Print char after ' '
+        for (int i = 0, n = strlen(s); i < n; i++)
         {
+            if (s[i] == ' ')
+            {
+                printf("%c", toupper(s[i + 1]));
+            }
         }
-        // capitalize and print the 1st character (char at index 0) of each i string
-        printf("%c", toupper(argv[i][0]));
     }
     printf("\n");
 }
+
+
+
